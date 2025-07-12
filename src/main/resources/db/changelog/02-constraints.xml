@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="02-coupon_consumptions-coupons" author="esraa.refaat">
+        <addForeignKeyConstraint
+                baseTableName="coupon_consumptions"
+                baseColumnNames="coupon_id"
+                constraintName="fk_consumption_coupon"
+                referencedTableName="coupons"
+                referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
