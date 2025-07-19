@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/coupons")
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @Slf4j
 public class CouponController {
@@ -65,6 +66,13 @@ public class CouponController {
     public ResponseEntity<List<CouponConsumptionResponse>> getCustomerConsumptions(@PathVariable String customerId) {
         log.info("Getting consumptions for customer ID: {}", customerId);
         List<CouponConsumptionResponse> response = couponService.getCustomerConsumptions(customerId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<CouponValidationResponse> validateCoupon(@Valid @RequestBody CouponValidationRequest request) {
+        log.info("Validating coupon: {} for customer: {}", request.getCouponCode(), request.getCustomerId());
+        CouponValidationResponse response = couponService.validateCoupon(request);
         return ResponseEntity.ok(response);
     }
 }

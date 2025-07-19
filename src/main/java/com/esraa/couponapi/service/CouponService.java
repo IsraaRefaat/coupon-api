@@ -112,8 +112,40 @@ public class CouponService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public CouponValidationResponse validateCoupon(CouponValidationRequest request) {
+        log.info("Validating coupon: {} for order total: {}", request.getCouponCode(), request.getOrderTotal());
+        
+        try {
+            Coupon coupon = couponRepository.findByCode(request.getCouponCode())
+                    .orElseThrow(() -> new CouponException("Coupon not found with code: " + request.getCouponCode()));
+
+            if (!coupon.isValid()) {
+                String reason = getInvalidReason(coupon);
+                return CouponValidationResponse.invalid(request.getCouponCode(), reason);
+            }
+
+            BigDecimal discountAmount = calculateCouponDiscount(coupon, request.getOrderTotal());
+            return CouponValidationResponse.valid(
+                    request.getCouponCode(), 
+                    discountAmount, 
+                    coupon.getDiscountType().toString()
+            );
+        } catch (CouponException e) {
+            return CouponValidationResponse.invalid(request.getCouponCode(), e.getMessage());
+        }
+    }
+
     private BigDecimal calculateDiscount(Coupon coupon) {
         return coupon.getDiscountValue();
+    }
+
+    private BigDecimal calculateCouponDiscount(Coupon coupon, BigDecimal orderTotal) {
+        if (coupon.getDiscountType() == DiscountType.PERCENTAGE) {
+            return orderTotal.multiply(coupon.getDiscountValue()).divide(BigDecimal.valueOf(100));
+        } else {
+            return coupon.getDiscountValue().min(orderTotal);
+        }
     }
 
     private String getInvalidReason(Coupon coupon) {
