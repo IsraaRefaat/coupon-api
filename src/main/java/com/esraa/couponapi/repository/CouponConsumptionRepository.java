@@ -11,12 +11,6 @@ import java.util.List;
 @Repository
 public interface CouponConsumptionRepository extends JpaRepository<CouponConsumption, Long> {
 
-    List<CouponConsumption> findByCouponId(Long couponId);
-
-    List<CouponConsumption> findByCustomerId(String customerId);
-
-    List<CouponConsumption> findByOrderId(String orderId);
-
     @Query("SELECT cc FROM CouponConsumption cc WHERE cc.coupon.id = :couponId ORDER BY cc.consumedAt DESC")
     List<CouponConsumption> findByCouponIdOrderByConsumedAtDesc(@Param("couponId") Long couponId);
 

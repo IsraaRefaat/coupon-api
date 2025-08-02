@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "8f1bbdd4-9cff-462e-8bca-3af641a0381d",
+		"name": "coupon-api-fawry",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41352369"
+	},
+	"item": [
+		{
+			"name": "create-coupon",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"esraa_14\",\r\n    \"totalUsages\": 4,\r\n    \"expiryDate\": \"2025-08-10T15:00:00\",\r\n    \"discountType\": \"FIXED\",\r\n    \"discountValue\": 20\r\n\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-all-coupons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-valid-coupon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/valid",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"valid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-coupon-byCode",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/ES14200",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ES14200"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-consumptions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/1/consumptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"1",
+						"consumptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/customers/1/consumptions",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"customers",
+						"1",
+						"consumptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consume-coupon",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"couponCode\": \"ES14200\",\r\n    \"customerId\": \"1\",\r\n    \"orderId\": \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/consume",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"consume"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

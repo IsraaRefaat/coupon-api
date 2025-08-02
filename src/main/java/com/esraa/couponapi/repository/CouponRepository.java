@@ -17,8 +17,5 @@ public interface CouponRepository extends JpaRepository<Coupon, Long> {
     @Query("SELECT c FROM Coupon c WHERE c.isActive = true AND c.expiryDate > :now AND c.remainingUsages > 0")
     List<Coupon> findValidCoupons(LocalDateTime now);
 
-    @Query("SELECT c FROM Coupon c WHERE c.expiryDate < :now")
-    List<Coupon> findExpiredCoupons(LocalDateTime now);
-
     boolean existsByCode(String code);
 }

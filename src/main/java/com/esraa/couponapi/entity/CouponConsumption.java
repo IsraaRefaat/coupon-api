@@ -1,5 +1,6 @@
 package com.esraa.couponapi.entity;
 
+import com.esraa.couponapi.entity.suberclass.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,12 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CouponConsumption {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_COUPON_CONSUMPTIONS")
-    @SequenceGenerator(name = "SEQ_COUPON_CONSUMPTIONS", sequenceName = "SEQ_COUPON_CONSUMPTIONS", allocationSize = 1)
-    private Long id;
+@AttributeOverride(name = "id", column = @Column(name = "id"))
+@SequenceGenerator(name = "SEQ_CUSTOM", sequenceName = "SEQ_COUPON_CONSUMPTIONS", allocationSize = 1)
+public class CouponConsumption extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id", nullable = false)
